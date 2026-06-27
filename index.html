@@ -607,8 +607,32 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
-      .projects-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; gap: 16px; }
       .nav-links { display: none; }
+      #projects { padding: 6rem 4vw; }
+      #contact  { padding: 6rem 4vw; }
+      .projects-header { margin-bottom: 3rem; }
+      .proj-img { height: 220px; }
+      .proj-body { padding: 1.4rem 1.4rem 2rem; }
+      .proj-name { font-size: 1.6rem; }
+      .contact-ring { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      #hero { padding: 6rem 6vw 5rem; }
+      .hero-cta { padding: .85rem 1.8rem; font-size: .7rem; }
+      .sec-title { font-size: 2rem; }
+      .sec-body { font-size: .88rem; }
+      #projects { padding: 5rem 5vw; }
+      #contact  { padding: 5rem 5vw; }
+      .proj-tag { font-size: .55rem; }
+      .proj-desc { font-size: .84rem; }
+      .proj-meta { gap: .4rem; }
+      .proj-pill { font-size: .58rem; padding: .22rem .55rem; }
+      .contact-email { font-size: 1.1rem; margin: 1.4rem 0 2rem; }
+      .contact-btn { padding: .85rem 1.8rem; font-size: .68rem; }
+      footer { flex-direction: column; gap: .6rem; text-align: center; }
+      .scroll-hint { display: none; }
     }
   </style>
 </head>
@@ -665,7 +689,7 @@
         </div>
         <div class="proj-img-wrap">
           <img class="proj-img"
-            src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=900&q=80"
+            src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80"
             alt="Bellevue Palace — site hôtel 5 étoiles" loading="lazy">
         </div>
         <div class="proj-body">
@@ -679,7 +703,7 @@
             <span class="proj-pill">Scroll Story</span>
             <span class="proj-pill">UI Dark & Gold</span>
           </div>
-          <a href="index.html" class="proj-link">
+          <a href="hotel.html" class="proj-link">
             Voir le site
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>

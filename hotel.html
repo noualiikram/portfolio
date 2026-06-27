@@ -386,26 +386,8 @@
 
 <!-- ══ Hero ══ -->
 <section id="home" aria-label="Bellevue Palace Bern — Welcome">
-  <video class="hero-bg" id="storyVideo" src="hotel.mp4" autoplay muted playsinline preload="auto" aria-hidden="true"></video>
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=85" alt="Bellevue Palace Bern — Grand Hotel" aria-hidden="true">
   <div class="hero-overlay"></div>
-
-  <!-- Phrase 1 — left -->
-  <div class="story-phrase sp-left" id="sp1" aria-hidden="true">
-    <span class="sp-rule"></span>
-    <p>A landmark of Swiss excellence,<br>welcoming the world since 1913.</p>
-  </div>
-
-  <!-- Phrase 2 — right -->
-  <div class="story-phrase sp-right" id="sp2" aria-hidden="true">
-    <span class="sp-rule"></span>
-    <p>The preferred address of heads of state,<br>diplomats &amp; discerning travellers.</p>
-  </div>
-
-  <!-- Phrase 3 — left -->
-  <div class="story-phrase sp-left" id="sp3" aria-hidden="true">
-    <span class="sp-rule"></span>
-    <p>Step inside a century of<br>unrivalled Alpine hospitality.</p>
-  </div>
 
   <div class="hero-content" id="heroContent">
     <p class="hero-eyebrow">Est. 1913 · UNESCO World Heritage · Berne</p>
@@ -726,77 +708,6 @@
 </footer>
 
 <script>
-  // ── Video story — state machine ──
-  const vid = document.getElementById('storyVideo');
-  const hc  = document.getElementById('heroContent');
-  const sh  = document.getElementById('scrollHint');
-  const sp1 = document.getElementById('sp1');
-  const sp2 = document.getElementById('sp2');
-  const sp3 = document.getElementById('sp3');
-  let state = 0;
-  let busy  = false; // prevent double-advance during transitions
-
-  function showPhrase(el) {
-    el.classList.add('visible');
-    el.setAttribute('aria-hidden', 'false');
-  }
-
-  function advance() {
-    if (busy) return;
-    busy = true;
-    const current = state;
-    const phrase  = current === 1 ? sp1 : current === 3 ? sp2 : sp3;
-    phrase.classList.remove('visible');
-    phrase.setAttribute('aria-hidden', 'true');
-    setTimeout(() => {
-      state = current + 1; // even = playing
-      if (state === 6) { releaseStory(); }
-      else { vid.play().catch(() => {}); }
-      busy = false;
-    }, 600); // wait for phrase fade-out
-  }
-
-  function releaseStory() {
-    window.removeEventListener('wheel',     onWheel);
-    window.removeEventListener('touchstart', onTouchStart);
-    window.removeEventListener('touchmove',  onTouchMove);
-  }
-
-  function onWheel(e) {
-    e.preventDefault();
-    if (e.deltaY > 0 && state % 2 === 1) advance(); // scroll down + paused state
-  }
-
-  let touchY0 = 0;
-  function onTouchStart(e) { touchY0 = e.touches[0].clientY; }
-  function onTouchMove(e) {
-    e.preventDefault();
-    const dy = touchY0 - e.touches[0].clientY;
-    if (dy > 12 && state % 2 === 1) { advance(); touchY0 = e.touches[0].clientY; }
-  }
-
-  // Use vid.duration directly in timeupdate — avoids loadedmetadata race condition
-  vid.addEventListener('timeupdate', () => {
-    const dur = vid.duration;
-    if (!dur) return;
-    const t = vid.currentTime;
-    if (state === 0 && t >= dur * 0.33) { vid.pause(); showPhrase(sp1); state = 1; }
-    if (state === 2 && t >= dur * 0.66) { vid.pause(); showPhrase(sp2); state = 3; }
-    if (state === 4 && t >= dur * 0.97) { vid.pause(); showPhrase(sp3); state = 5; }
-  });
-
-  // Fade out hero title as video plays
-  vid.addEventListener('canplay', () => {
-    setTimeout(() => { hc.style.transition = 'opacity 1.2s ease'; hc.style.opacity = '0'; }, 2000);
-    setTimeout(() => { sh.style.transition = 'opacity .8s ease';  sh.style.opacity  = '0'; }, 1300);
-  });
-
-  vid.play().catch(() => {});
-
-  window.addEventListener('wheel',      onWheel,      { passive: false });
-  window.addEventListener('touchstart', onTouchStart, { passive: true  });
-  window.addEventListener('touchmove',  onTouchMove,  { passive: false });
-
   // Nav scroll
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
